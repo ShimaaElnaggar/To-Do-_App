@@ -12,9 +12,25 @@ class HomeView extends StatelessWidget {
         title: const Text("To-Do App",style: TextStyle(color: Colors.white),),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xff239B97),
-        child: Icon(Icons.add,color: Colors.white,),
+        backgroundColor: const Color(0xff239B97),
+        child: const Icon(Icons.add,color: Colors.white,),
         onPressed: () {  },
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.menu),
+              label: "Tasks",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.check_box),
+            label: "Done",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.archive_outlined),
+            label: "Archived",
+          ),
+        ],
       ),
     );
   }
