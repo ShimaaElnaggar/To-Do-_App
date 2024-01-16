@@ -1,5 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:to_do_app/views/archived_tasks_view.dart';
+import 'package:to_do_app/views/done_tasks_view.dart';
+import 'package:to_do_app/views/new_task_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -10,13 +13,25 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int currentIndex = 0;
+  List<Widget> views = [
+    const NewTasksView(),
+    const DoneTasksView(),
+    const ArchivedTasksView(),
+  ];
+
+  List<String> headers = [
+    " New Tasks ",
+    " Done Tasks ",
+    " Archived Tasks ",
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff239B97),
-        title: const Text("To-Do App",style: TextStyle(color: Colors.white),),
+        title: Text( headers [currentIndex],style: const TextStyle(color: Colors.white),),
       ),
+      body: views[currentIndex],
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xff239B97),
         child: const Icon(Icons.add,color: Colors.white,),
