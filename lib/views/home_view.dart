@@ -12,6 +12,8 @@ class HomeView extends StatelessWidget {
         title: const Text("To-Do App",style: TextStyle(color: Colors.white),),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xff239B97),
+        child: Icon(Icons.add,color: Colors.white,),
         onPressed: () {  },
       ),
     );
