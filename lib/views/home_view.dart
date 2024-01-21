@@ -13,7 +13,9 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-
+  IconData fabIcon = Icons.edit;
+  bool isBottomSheetOPend = false;
+  var scaffoldKey=GlobalKey<ScaffoldState>();
   SqlDatabase sqlDatabase =SqlDatabase();
   int currentIndex = 0;
   List<Widget> views = [
@@ -36,6 +38,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key:scaffoldKey,
       appBar: AppBar(
         backgroundColor: const Color(0xff239B97),
         title: Text( headers [currentIndex],style: const TextStyle(color: Colors.white),),
@@ -43,8 +46,28 @@ class _HomeViewState extends State<HomeView> {
       body: views[currentIndex],
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xff239B97),
-        child: const Icon(Icons.add,color: Colors.white,),
+        child: Icon(fabIcon,color: Colors.white,),
         onPressed: () {
+          if( isBottomSheetOPend){
+            Navigator.pop(context);
+            isBottomSheetOPend = false;
+            setState(() {
+              fabIcon = Icons.edit;
+            });
+          }else{
+            scaffoldKey.currentState!.showBottomSheet((context) {
+              return Container(
+                color: Colors.blue,
+                width: double.infinity,
+                height: 100,
+              );
+            });
+            isBottomSheetOPend = true;
+            setState(() {
+              fabIcon = Icons.add;
+            });
+          }
+
           sqlDatabase.insertData('''
               INSERT INTO TASKS(
               title,
