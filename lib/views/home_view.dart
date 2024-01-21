@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:to_do_app/sql_db.dart';
 import 'package:to_do_app/views/archived_tasks_view.dart';
 import 'package:to_do_app/views/done_tasks_view.dart';
 import 'package:to_do_app/views/new_task_view.dart';
@@ -12,6 +13,8 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+
+  SqlDatabase sqlDatabase =SqlDatabase();
   int currentIndex = 0;
   List<Widget> views = [
     const NewTasksView(),
@@ -24,6 +27,12 @@ class _HomeViewState extends State<HomeView> {
     " Done Tasks ",
     " Archived Tasks ",
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    sqlDatabase.initialDatabase();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +44,22 @@ class _HomeViewState extends State<HomeView> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xff239B97),
         child: const Icon(Icons.add,color: Colors.white,),
-        onPressed: () {  },
+        onPressed: () {
+          sqlDatabase.insertData('''
+              INSERT INTO TASKS(
+              title,
+              date,
+              time,
+              status,),
+              
+              VALUES(
+              "FIRST TASK",
+              "21/1/2024",
+              "4:30 PM",
+              "NEW",),
+              ''');
+          print("insert done");
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: const Color(0xff239B97),

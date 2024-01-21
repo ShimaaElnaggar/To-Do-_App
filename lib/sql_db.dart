@@ -19,6 +19,7 @@ class SqlDatabase{
 
     Database myDatabase = await openDatabase (
         path,
+      version: 1,
       onCreate: (Database database , int version)async{
           await database.execute('''
             CREATE TABLE "tasks" (
@@ -28,11 +29,40 @@ class SqlDatabase{
             time TEXT,
             status TEXT,
             )
-          ''');
-          print("Database is created");
-      }
+          ''').then((value) => print("Database is created"))
+              .catchError((error){
+                print(error);
+              });
+
+      },
+      onOpen: (Database database){
+          print("opened=============");
+      },
+      onUpgrade: (Database database , int oldVersion , int newVersion){
+          print("OnUpgraded================================");
+      },
     );
   }
+  // readData(String sql) async{
+  //   Database? myDatabase = await database;
+  //   List <Map> response = await myDatabase!.rowQuery(sql);
+  // }
+  insertData(String sql) async{
+    Database ? myDatabase = await database;
+    myDatabase?.transaction(
+            (txn) {
+              txn.rawInsert(sql);
+              return database;
+            });
 
+  }
+  // deleteData(String sql) async{
+  //   Database ? myDatabase = await database;
+  //   int response = await myDatabase!.rowDelete(sql);
+  // }
+  // updateData(String sql) async{
+  //   Database ? myDatabase = await database;
+  //   int response = await myDatabase!.rowUpdate(sql);
+  // }
 
 }

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/views/home_view.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-void main() {
+ main() {
+  // sqfliteFfiInit();
+  // databaseFactory = databaseFactoryFfi;
+
   runApp(const MyApp());
 }
 
