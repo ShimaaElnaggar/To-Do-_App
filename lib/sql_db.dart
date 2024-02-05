@@ -43,23 +43,29 @@ class SqlDatabase{
       },
     );
   }
+  
   // readData(String sql) async{
   //   Database? myDatabase = await database;
   //   List <Map> response = await myDatabase!.rowQuery(sql);
+  //   return response;
   // }
+
   insertData(String sql) async{
     Database ? myDatabase = await database;
     myDatabase?.transaction(
-            (txn) {
-              txn.rawInsert(sql);
-              return database;
+            (txn) async{
+              int response= await txn.rawInsert(sql);
+              return response;
             });
 
+
   }
+
   // deleteData(String sql) async{
   //   Database ? myDatabase = await database;
   //   int response = await myDatabase!.rowDelete(sql);
   // }
+
   // updateData(String sql) async{
   //   Database ? myDatabase = await database;
   //   int response = await myDatabase!.rowUpdate(sql);

@@ -68,7 +68,7 @@ class _HomeViewState extends State<HomeView> {
             });
           }
 
-          sqlDatabase.insertData('''
+          int response = sqlDatabase.insertData('''
               INSERT INTO TASKS(
               title,
               date,
@@ -81,7 +81,7 @@ class _HomeViewState extends State<HomeView> {
               "4:30 PM",
               "NEW",),
               ''');
-          print("insert done");
+          print(response);
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
